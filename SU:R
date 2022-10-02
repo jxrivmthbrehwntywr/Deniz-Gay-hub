@@ -1,0 +1,45 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Stand Upright 2 | Deniz = Gay HUB", "Serpent")
+local FarmingTab = Window:NewTab("Auto Farm")
+local FarmingSection = FarmingTab:NewSection("Auto Farm")
+
+local tween = game:GetService("TweenService")
+local tp = game:GetService("TeleportService")
+getgenv().farmitems = false
+FarmingSection:NewToggle("Farm All Items", "does exactly what it says", function(state)
+    getgenv().farmitems = state
+end)
+
+
+game.RunService.RenderStepped:Connect(function()
+    if getgenv().farmitems then
+        for i, v in next, game.Workspace.Items:GetChildren() do
+            if not getgenv().farmitems then break end
+            tween:Create( game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.05), {CFrame = CFrame.new(v.Handle.Position)}):Play()
+            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+        end
+    end
+end)
+
+local UtilityTab = Window:NewTab("Utility")
+local UtilitySection = UtilityTab:NewSection("Utility")
+
+UtilitySection:NewButton("Use Rokakaka", "ButtonInfo", function()
+    local roka = game.Players.LocalPlayer.Backpack:FindFirstChild("Rokakaka")
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(roka)
+    game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+    workspace.Living.masterOMG5623.Rokakaka.Use:FireServer()
+end)
+
+UtilitySection:NewButton("Use Stand Arrow", "ButtonInfo", function()
+    local standarrow = game.Players.LocalPlayer.Backpack:FindFirstChild("Stand Arrow")
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(standarrow)
+    game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+    workspace.Living.masterOMG5623["Stand Arrow"].Use:FireServer()
+end)
+
+
+UtilitySection:NewButton("Teleport To Boards", "ButtonInfo", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(-664.0313110351562, 67.0282211303711, -444.02081298828125))
+end)
+
